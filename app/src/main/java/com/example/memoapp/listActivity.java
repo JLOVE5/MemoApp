@@ -4,6 +4,7 @@ import androidx.appcompat.app.AppCompatActivity;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
+import android.content.Context;
 import android.content.Intent;
 import android.database.Cursor;
 import android.os.Bundle;
@@ -20,6 +21,8 @@ ArrayList<String> Memo_id, Memo_title, Memo_content, Memo_date, Memo_importance;
 memoAdapter memoAdapt;
 Button newMemo ;
 Button settings;
+String orderBy, sortBy;
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -35,8 +38,8 @@ Button settings;
          initNewButton();
          initSettingsButton();
 
-
-storeData();
+setSharedPreferences();
+storeData(sortBy,orderBy);
 memoAdapt = new memoAdapter(listActivity.this, Memo_id, Memo_title,Memo_content,Memo_date,Memo_importance);
 recyclerView.setAdapter(memoAdapt);
 recyclerView.setLayoutManager(new LinearLayoutManager(listActivity.this));
@@ -57,8 +60,8 @@ recyclerView.setLayoutManager(new LinearLayoutManager(listActivity.this));
 
 
 
-public void storeData(){
-    Cursor cursor = myDB.readAllData();
+public void storeData(String sortBy,String orderBy){
+    Cursor cursor = myDB.readAllData(sortBy,orderBy);
     if(cursor.getCount() == 0){
         Toast.makeText(this,"No data.", Toast.LENGTH_SHORT).show();
         Intent i = new Intent(listActivity.this,MainActivity.class);
@@ -86,5 +89,10 @@ void initSettingsButton(){
         }
     });
 }
+//Sets the String
+private void setSharedPreferences(){
+        orderBy = getSharedPreferences("MyMemoListPreferences", Context.MODE_PRIVATE).getString("sortorder","ASC");
+        sortBy = getSharedPreferences("MyMemoListPreferences",Context.MODE_PRIVATE).getString("sortfield",MemoDBHelper.COLUMN_MEMO_TITLE);
 
+}
 }

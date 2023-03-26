@@ -55,6 +55,16 @@ if(db != null){
 }
 return cursor;
     }
+    Cursor readAllData(String order, String sort ){
+        String query = "SELECT * FROM " + MEMO_TABLE + " ORDER BY " + order+" "+ sort;
+        SQLiteDatabase db = this.getReadableDatabase();
+
+        Cursor cursor = null;
+        if(db != null){
+            cursor = db.rawQuery(query,null);
+        }
+        return cursor;
+    }
 
     void updateData(String row_id, String title, String date, String content, String importance){
       SQLiteDatabase db = this.getWritableDatabase();

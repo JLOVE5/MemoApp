@@ -36,16 +36,16 @@ initSortOrderClick();
     }
 private void initSettings(){
         String sortBy = getSharedPreferences("MyMemoListPreferences",
-                Context.MODE_PRIVATE).getString("sortfield","memotitle");
+                Context.MODE_PRIVATE).getString("sortfield",MemoDBHelper.COLUMN_MEMO_TITLE);
         String sortOrder = getSharedPreferences("MyMemoListPreferences",
                 Context.MODE_PRIVATE).getString("sortorder","ASC");
 
         RadioButton rbTitle = findViewById(R.id.radioTitle);
         RadioButton rbDate = findViewById(R.id.radioDate);
         RadioButton rbImportance = findViewById(R.id.radioImportance);
-        if (sortBy.equalsIgnoreCase("memotitle")){
+        if (sortBy.equalsIgnoreCase(MemoDBHelper.COLUMN_MEMO_TITLE)){
             rbTitle.setChecked(true);
-        } else if (sortBy.equalsIgnoreCase("date")){
+        } else if (sortBy.equalsIgnoreCase(MemoDBHelper.COLUMN_MEMO_DATE)){
             rbDate.setChecked(true);
         }else {
             rbImportance.setChecked(true);
@@ -78,17 +78,17 @@ private void initSortByClick(){
                 if(rbTitle.isChecked()){
                     getSharedPreferences("MyMemoListPreferences",
                             Context.MODE_PRIVATE).edit()
-                            .putString("sortfield","memotitle").apply();
+                            .putString("sortfield",MemoDBHelper.COLUMN_MEMO_TITLE).apply();
                 }
                 else if(rbDate.isChecked()){
                     getSharedPreferences("MyMemoListPreferences",
                             Context.MODE_PRIVATE).edit()
-                            .putString("sortfield","date").apply();
+                            .putString("sortfield",MemoDBHelper.COLUMN_MEMO_DATE).apply();
                 }
                 else {
                     getSharedPreferences("MyMemoListPreferences",
                             Context.MODE_PRIVATE).edit()
-                            .putString("sortfield","importance").apply();
+                            .putString("sortfield",MemoDBHelper.COLUMN_MEMO_IMPORTANCE).apply();
                 }
             }
         });
