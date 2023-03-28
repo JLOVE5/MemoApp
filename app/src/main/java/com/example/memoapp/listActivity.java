@@ -59,7 +59,7 @@ recyclerView.setLayoutManager(new LinearLayoutManager(listActivity.this));
     }
 
 
-
+//
 public void storeData(String sortBy,String orderBy){
     Cursor cursor = myDB.readAllData(sortBy,orderBy);
     if(cursor.getCount() == 0){
